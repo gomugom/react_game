@@ -12,6 +12,7 @@ function BaseballFunc() {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        setTries([...tries, {fruit: '사과' + value, taste: 'delicious'}]);
     }
 
     const onChangeInput = (e) => {
@@ -35,10 +36,11 @@ function BaseballFunc() {
             <div>결과 : {result}</div>
             <form onSubmit={onSubmit}>
                 <input maxLength={4} value={value} onChange={onChangeInput} />
+                <button>입력!</button>
             </form>
             <ul>
                 {
-                    fruits.map((e, idx) => <Try_Func value = {e} index = {idx} />)
+                    tries.map((e, idx) => <Try_Func value = {e} index = {idx} />)
                 }
             </ul>
         </>
