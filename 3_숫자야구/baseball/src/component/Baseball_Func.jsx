@@ -38,9 +38,7 @@ function BaseballFunc() {
             </form>
             <ul>
                 {
-                    fruits.map((e, idx) => {
-                        <Try_Func value = {e} index = {idx} /> 
-                    })
+                    fruits.map((e, idx) => <Try_Func value = {e} index = {idx} />)
                 }
             </ul>
         </>

@@ -32,11 +32,41 @@ class Baseball extends Component {
         tries : []
     }
 
+    testArrays = [
+        {
+            name : 'h1',
+            age : 20
+        },
+        {
+            name : 'h2',
+            age : 25
+        },
+        {
+            name : 'h3',
+            age : 28
+        }
+    ];
+
     inputRef;
 
     onSubmit = (e) => { // 화살표함수로 사용해야 this.state 접근 가능
         e.preventDefault();
+        
+        // ** array.push로 넣으면 X => 배열변화를 감지하지 못해서 UI 업데이트가 발생하지 않음 => ...활용!!
+        this.setState({
+            tries: [...this.state.tries, {fruit: '사과' + this.state.value, taste:'delicious'}]
+        });
+        
         this.inputRef.focus();
+
+        // var test1 = this.testArrays.splice(1, 1); // idx = 1에서부터 1개 지움
+        // console.log(this.testArrays); // 잘려진 것 빠진 전체 배열(원본 데이터 영향 o)
+        // console.log(test1); // 잘려나온 배열
+
+        var test2 = this.testArrays.splice(this.testArrays.length, 0, {name : 'h4', age: 33}, {name : 'h5', age: 36});
+        console.log(this.testArrays);
+        console.log(test2);
+
     }
 
     onChangeInput = (e) => {
@@ -49,29 +79,26 @@ class Baseball extends Component {
         this.inputRef = c;
     }
 
-    fruits = [
-        {
-            fruit : '사과',
-            taste : '맛있다.'
-        },
-        {
-            fruit : '바나나',
-            taste : '달다.'
-        }
-    ];
-
+    
     render() {
+
+        // 비구조화 할당으로 대입
+        var { tries } = this.state;
+
         return (
             <>
                 <div>결과 : {this.state.result}</div>
                 <form onSubmit={this.onSubmit}>
                     <input maxLength={4} ref={this.setInputRef} value = {this.state.value} onChange={this.onChangeInput} /> 
+                    <button>입력!</button>
                 </form>
                 <ul>
                     {
                         // map을 이용한 반복문 element 제어
-                        this.fruits.map((e, idx) => {
-                            <Try value = {e} index = {idx} />
+                        tries.map((e, idx) => {
+                            return (
+                                <Try value = {e} index = {idx} />
+                            );
                         })
                     }
                 </ul>
