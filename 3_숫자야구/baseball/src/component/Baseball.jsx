@@ -49,6 +49,24 @@ class Baseball extends Component {
 
     inputRef;
 
+    /**
+     * [ React Render에 관하여 ... ]
+     * 
+     *  React가 렌더링 되는 경우는?
+     *  1. Props가 변경될 때
+     *  2. state가 변경될 때
+     *  4. 부모 컴포넌트가 변경될 때
+     *  => 하지만 React는 덜 영리해서 setState만 호출해도 그중 reRendering이 되지 않아도 되는 경우에도 렌더링이 발생할 수 있다
+     *  => 따라서, 어떤 조건일 때 렌더링이 될지를 지정해 줄 수 있는데 이때 "shouldComponentUpdate 메서드를 이용한다."
+     * 
+    */
+    shouldComponentUpdate(nextsProps, nextsState, nextsContext) {
+        if(this.state.value !== nextsState.value) {
+            return true;
+        }
+        if(this.state.result !== nextsState.result) return true;
+    };
+
     onSubmit = (e) => { // 화살표함수로 사용해야 this.state 접근 가능
         e.preventDefault();
         
@@ -58,7 +76,7 @@ class Baseball extends Component {
         this.setState((prevState) => {
             return {
                 tries: [...prevState.state.tries, {fruit: '사과' + this.state.value, taste:'delicious'}]
-            }
+            };
         });
         
         this.inputRef.focus();

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class Try extends Component {
+
     render() {
         
         // 비구조화 할당으로 대입 => fruit, taste는 중첩 비구조화문
