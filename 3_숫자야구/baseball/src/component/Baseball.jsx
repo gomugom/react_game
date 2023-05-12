@@ -53,8 +53,12 @@ class Baseball extends Component {
         e.preventDefault();
         
         // ** array.push로 넣으면 X => 배열변화를 감지하지 못해서 UI 업데이트가 발생하지 않음 => ...활용!!
-        this.setState({
-            tries: [...this.state.tries, {fruit: '사과' + this.state.value, taste:'delicious'}]
+        // **** 한 메서드 내에서 setState가 여러번 발생할 경우 비동기로 처리될 수 있기 때문에
+            // 이전 state값을 참조하기 위해 this.state.~ 로 접근하지 말고 prevState(함수형 state)를 통해 접근하자!!
+        this.setState((prevState) => {
+            return {
+                tries: [...prevState.state.tries, {fruit: '사과' + this.state.value, taste:'delicious'}]
+            }
         });
         
         this.inputRef.focus();
