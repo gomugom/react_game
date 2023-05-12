@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import Try from './Try';
 
 /*
@@ -47,7 +47,8 @@ class Baseball extends PureComponent { // PureComponent를 사용하면 shouldCo
         }
     ];
 
-    inputRef;
+    // (c) => {this.inputRef = c;} 말고도 createRef를 사용할 수 있다. => 이렇게하면 Function에서 useRef처럼 this.inputRef.current.focus()처럼 current 통일시킬 수 있음
+    inputRef = createRef();
 
     /**
      * [ React Render에 관하여 ... ]
@@ -80,7 +81,7 @@ class Baseball extends PureComponent { // PureComponent를 사용하면 shouldCo
             };
         });
         
-        this.inputRef.focus();
+        this.inputRef.current.focus();
 
         // var test1 = this.testArrays.splice(1, 1); // idx = 1에서부터 1개 지움
         // console.log(this.testArrays); // 잘려진 것 빠진 전체 배열(원본 데이터 영향 o)
@@ -98,9 +99,9 @@ class Baseball extends PureComponent { // PureComponent를 사용하면 shouldCo
         });
     }
 
-    setInputRef = (c) => {
-        this.inputRef = c;
-    }
+    // setInputRef = (c) => {
+    //     this.inputRef = c;
+    // }
 
     
     render() {
@@ -112,7 +113,7 @@ class Baseball extends PureComponent { // PureComponent를 사용하면 shouldCo
             <>
                 <div>결과 : {this.state.result}</div>
                 <form onSubmit={this.onSubmit}>
-                    <input maxLength={4} ref={this.setInputRef} value = {this.state.value} onChange={this.onChangeInput} /> 
+                    <input maxLength={4} ref={this.inputRef} value = {this.state.value} onChange={this.onChangeInput} /> 
                     <button>입력!</button>
                 </form>
                 <ul>
