@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Try from './Try';
 
 /*
@@ -17,7 +17,7 @@ import Try from './Try';
     ** Node Module System과 React import문은 서로 90프로 이상 호환 가능
 */
 
-class Baseball extends Component {
+class Baseball extends PureComponent { // PureComponent를 사용하면 shouldComponentUpdate를 대체할 수 있음 => 자동 shouldComponentUpdate + 부모 component변경시 자식 component변경 막아줌
 
     // constructor(props) {
     //     super(props);
@@ -59,13 +59,14 @@ class Baseball extends Component {
      *  => 하지만 React는 덜 영리해서 setState만 호출해도 그중 reRendering이 되지 않아도 되는 경우에도 렌더링이 발생할 수 있다
      *  => 따라서, 어떤 조건일 때 렌더링이 될지를 지정해 줄 수 있는데 이때 "shouldComponentUpdate 메서드를 이용한다."
      * 
+     * => PureComponent 사용시 이 부분은 대체할 수 있음 하지만 특정 state값이 변경되어도 rerendering 되지 않게 등의 세밀작업은 shouldComponentUpdate를 통해서 해야함
     */
-    shouldComponentUpdate(nextsProps, nextsState, nextsContext) {
-        if(this.state.value !== nextsState.value) {
-            return true;
-        }
-        if(this.state.result !== nextsState.result) return true;
-    };
+    // shouldComponentUpdate(nextsProps, nextsState, nextsContext) {
+    //     if(this.state.value !== nextsState.value) {
+    //         return true;
+    //     }
+    //     if(this.state.result !== nextsState.result) return true;
+    // };
 
     onSubmit = (e) => { // 화살표함수로 사용해야 this.state 접근 가능
         e.preventDefault();

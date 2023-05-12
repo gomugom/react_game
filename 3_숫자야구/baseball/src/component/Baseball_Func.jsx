@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import Try_Func from "./Try_Func";
 
 
@@ -7,7 +7,10 @@ function getNumbers() {
     return "1";
 }
 
-function BaseballFunc() {
+/*
+    memo 로 감싸기 : Function 기반에서 memo로 감싸면 부모 컴포넌트가 변경되어도 자식 Component가 변경되는 것을 막아줌
+*/
+const BaseballFunc = memo(() => {
 
     /*
         아래처럼 useState에 getNumbers()처럼 넣으면 안됨!
@@ -64,6 +67,6 @@ function BaseballFunc() {
             </ul>
         </>
     );
-}
+});
 
 export default BaseballFunc;
