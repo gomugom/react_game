@@ -35,6 +35,7 @@ const BaseballFunc = memo(() => {
         setTries((prevTries) => {
             return [...prevTries, {fruit: '사과' + value, taste: 'delicious'}];
         });
+        inputRef.current.focus();
     }
 
     const onChangeInput = (e) => {

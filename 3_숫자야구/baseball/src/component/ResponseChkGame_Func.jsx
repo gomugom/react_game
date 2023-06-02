@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo, useEffect } from 'react';
 import './ResponseChkGameCSS.css';
 
-const ResponseChkGame = memo(() => {
+const ResponseChkGame = memo(() => { // 부모가 바꼇을 때 자식이 변경되지 않도록! memo 사용
     
     const [state, setState] = useState('waiting');
     const [message, setMessage] = useState('클릭해서 시작하세요.');
@@ -23,6 +23,16 @@ const ResponseChkGame = memo(() => {
     // timeout;
     // startTime;
     // endTime;
+
+    // 매번 함수의 재실행을 막기위해 사용됨.
+    // componentDidMount, componentDidUpdate 역할을 대신해줌(1:1 매핑까진 아님)
+    useEffect(() => {
+        // setInterval
+        return () => { // componentWillUnmount 역할
+            // clearInterval
+        }
+    }, []); // 바끼는 state를 []안에 넣어줌 ==> []안에 넣어준 녀석이 바낄 때마다 useEffect 내의 익명함수가 계속 실행됨
+    // []을 빈채로 두면 : 최초 한번만 실행하고 더이상 실행하지 않겠다는 의미.
 
     const onClickScreen = (e) => {
 
